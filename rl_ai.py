@@ -122,10 +122,10 @@ class RLAgent:
             reward = 1  # Reward for surviving one more step
 
             if collision or game_board.is_collision(player.x, player.y):
-                reward = -10  # Penalty for collision
+                reward = -1  # Penalty for collision
                 done = True
             elif game_board.is_collision(opponent.x, opponent.y):
-                reward = 10  # Reward for opponent's collision
+                reward = 1  # Reward for opponent's collision
                 done = True
 
             total_reward += reward
