@@ -27,14 +27,20 @@ class Player:
         """
         self.opponent = opponent
 
-    def move(self, game_board):
+    def move(self, game_board, action=None):
         """
         Move the player based on their current direction.
         """
         if self.opponent is None:
             raise ValueError("Opponent not set. Call set_opponent() before moving.")
 
-        action = self.controller.get_direction(game_board, self, self.opponent)
+        # If an action is provided externally, use it; otherwise query controller
+        if action is None:
+            try:
+                action = self.controller.get_direction(game_board, self, self.opponent)
+            except TypeError:
+                action = self.controller.get_direction(game_board, self)
+
         self.change_direction(action)
 
         new_x = self.x + self.direction[0]
